@@ -1,0 +1,9 @@
+*.svg
+*.txt
+*.pdf
+*.pyc
+*.json
+/ssl
+/test
+/test.js
+/openapi.py
