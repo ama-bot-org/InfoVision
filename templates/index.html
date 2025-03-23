@@ -15,30 +15,39 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
-        .carousel-container {
+        #svgContainer {
             margin: 2rem auto;
-            max-width: 950px;
+            max-width: 900px;
             display: flex;
             flex-direction: column;
-            gap: 2rem;
             overflow-y: auto;
-            padding: 1rem;
+            position: relative;
         }
 
-        .carousel-item {
+        .svg-list {
             position: relative;
-            min-height: 650px;
+            margin: 0 auto;
             text-align: center;
             border: 1px solid #ddd;
             border-radius: 8px;
-            padding: 1rem;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            background-color: white;
+            cursor: pointer;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
         }
 
-        .carousel-item svg {
-            max-width: 100%;
-            max-height: 100%;
-            margin: auto;
+        .svg-wrap {
+            width: 100%;
+            position: relative;
+        }
+
+        .svg-list svg {
+            aspect-ratio: 4/3;
+            width: 800px;
+            object-fit: cover;
+            object-position: center;
         }
 
         .download-btn {
@@ -53,11 +62,6 @@
 
         #uploadForm {
             text-align: center;
-        }
-
-        .progress {
-            display: none;
-            margin-top: 1rem;
         }
 
         #alertContainer {
@@ -83,6 +87,66 @@
         .loading-spinner {
             color: #fff;
         }
+
+        .disabled {
+            pointer-events: none;
+            opacity: 0.6;
+        }
+
+        .status-container {
+            margin: 1rem auto;
+            max-width: 800px;
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+            display: none;
+        }
+
+        .status-container.uploading {
+            background-color: #e3f2fd;
+            border: 1px solid #90caf9;
+        }
+
+        .status-container.converting {
+            background-color: #fff3e0;
+            border: 1px solid #ffcc80;
+        }
+
+        .status-container.error {
+            background-color: #ffebee;
+            border: 1px solid #ffcdd2;
+        }
+
+        .status-container.success {
+            background-color: #e8f5e9;
+            border: 1px solid #c8e6c9;
+        }
+
+        @media (max-width: 768px) {
+            .svg-list {
+                width: 100%;
+                max-width: 800px;
+                min-height: calc(100vh - 300px);
+                position: relative;
+            }
+
+            .svg-wrap {
+                aspect-ratio: 320/240;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-bottom: 20px;
+            }
+
+            .svg-list topic,
+            .svg-list svg {
+                position: absolute;
+                transform: scale(0.4);
+                margin: 0;
+                padding: 0;
+                width: 800px;
+            }
+        }
     </style>
 </head>
 
@@ -91,36 +155,53 @@
         <div class="upload-container">
             <form id="uploadForm">
                 <div class="mb-3">
-                    <label for="pdfFile" class="form-label">选择PDF文件</label>
+                    <label for="pdfFile" class="form-label">选择PDF文件生成结构化的svg</label>
                     <input type="file" class="form-control" id="pdfFile" accept=".pdf" required>
                 </div>
-                <button type="submit" class="btn btn-primary">PDF生成SVG</button>
-                <div class="progress mt-3">
-                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
-                        style="width: 0%"></div>
-                </div>
+                <button type="submit" class="btn btn-primary" id="submitBtn">上传并转换</button>
             </form>
         </div>
 
-        <div id="svgCarousel" class="carousel slide carousel-container" data-bs-ride="carousel">
-            <div class="carousel-inner">
-                <!-- SVG内容将在这里动态插入 -->
-            </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#svgCarousel" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">上一页</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#svgCarousel" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">下一页</span>
-            </button>
+        <div id="statusContainer" class="status-container">
+            <div class="status-message"></div>
+        </div>
+
+        <div id="svgContainer">
+            <div id="svgList" class="svg-list"></div>
+            <!-- SVG内容将在这里动态插入 -->
         </div>
     </div>
 
     <div id="alertContainer"></div>
 
     <script src="https://cdn.bootcdn.net/ajax/libs/bootstrap/5.1.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     <script>
+        function setFormState(disabled) {
+            const form = document.getElementById('uploadForm');
+            const submitBtn = document.getElementById('submitBtn');
+            const fileInput = document.getElementById('pdfFile');
+
+            if (disabled) {
+                form.classList.add('disabled');
+                submitBtn.disabled = true;
+                fileInput.disabled = true;
+            } else {
+                form.classList.remove('disabled');
+                submitBtn.disabled = false;
+                fileInput.disabled = false;
+            }
+        }
+
+        function updateStatus(message, type) {
+            const statusContainer = document.getElementById('statusContainer');
+            const statusMessage = statusContainer.querySelector('.status-message');
+
+            statusContainer.className = 'status-container ' + type;
+            statusMessage.textContent = message;
+            statusContainer.style.display = 'block';
+        }
+
         document.getElementById('uploadForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const fileInput = document.getElementById('pdfFile');
@@ -133,13 +214,9 @@
             const formData = new FormData();
             formData.append('file', file);
 
-            const progress = document.querySelector('.progress');
-            const progressBar = progress.querySelector('.progress-bar');
-            progress.style.display = 'block';
-            progressBar.style.width = '0%';
-
-            const loadingOverlay = document.querySelector('.loading-overlay');
-            loadingOverlay.style.display = 'flex';
+            // Disable form interactions
+            setFormState(true);
+            updateStatus('正在上传并解析PDF文件...', 'uploading');
 
             try {
                 const response = await fetch('/streamupload', {
@@ -165,22 +242,27 @@
                         if (!line.startsWith('data: ')) continue;
                         const data = JSON.parse(line.substring(6));
                         if (data.type === 'start') {
-                            // 开始新的转换
-                            allData = ''; // 重置allData
+                            allData = '';
                             currentSvgContent = '';
                             currentTopic = '';
                             svgFiles = [];
+                            updateStatus('正在转换PDF为SVG...', 'converting');
                         } else if (data.content === 'Done') {
-                            console.log('完整的数据:', allData); // 添加日志
-                            // 转换完成
+                            console.log('完整的数据:', allData);
                             ret = updateSvglWithData(allData)
                             svgFiles = [];
                             for (const file of ret) {
                                 svgFiles.push({ topic: file.topic, svg: file.svg });
                             }
-                            showAlert('PDF转换成功！', 'success');
-                            updateCarouselWithFiles(svgFiles);
-                            loadingOverlay.style.display = 'none';
+                            updateStatus('PDF转换成功！', 'success');
+                            // 添加一个下载所有SVG的按钮
+                            const downloadAllBtn = document.createElement('button');
+                            downloadAllBtn.className = 'btn btn-primary';
+                            downloadAllBtn.style.margin = '1rem auto';
+                            downloadAllBtn.style.display = 'block';
+                            downloadAllBtn.textContent = '下载所有SVG文件';
+                            downloadAllBtn.onclick = () => downloadAllSVGs(svgFiles);
+                            svgContainer.appendChild(downloadAllBtn);
                         } else {
                             allData += data.content;
                             svgFiles = [];
@@ -189,80 +271,123 @@
                                 svgFiles.push({ topic: file.topic, svg: file.svg });
                             }
                             if (!updateTimer) {
-                                //在这边加入提示,正在生成svgFiles.length个svg
-                               // showAlert(`正在生成第 ${svgFiles.length+1} 个SVG文件...`, 'info');
                                 updateTimer = setTimeout(() => {
-                                    
-                                    //const tempFiles = [...svgFiles, { topic: currentTopic, svg: currentSvgContent }];
                                     if (svgFiles.length > 0) {
-                                        updateCarouselWithFiles(svgFiles);
+                                        updateSVGContainerWithFiles(svgFiles);
                                     }
                                     updateTimer = null;
-                                }, 2000);
+                                }, 3000);
                             }
                         }
                     }
                 }
             } catch (error) {
+                updateStatus('上传或转换过程中发生错误', 'error');
                 showAlert('上传或转换过程中发生错误', 'danger');
             } finally {
-                progress.style.display = 'none';
                 fileInput.value = '';
-                loadingOverlay.style.display = 'none';
+                // Re-enable form interactions
+                setFormState(false);
             }
         });
 
         function updateSvglWithData(allData) {
-            // 从所有的数据中提取出svg和topic
-            // 用于存储提取的结果
-
-            allData =  allData.replace(/<\/svg>[\s\S]*?<svg/g, '</svg><svg');
             const results = [];
 
             // 使用正则表达式匹配所有的topic和svg对
-            const pattern = /<topic>(.*?)<\/topic>\s*<svg>\s*(<svg[\s\S]*?<\/svg>)\s*<\/svg>/g;
-
+            const pattern = /<topic>(.*?)<\/topic>\s*(<svg[\s\S]*?<\/svg>)/g;
 
             // 使用matchAll获取所有匹配
-            const matches = allData.matchAll(pattern);
+            const matches = allData.replace(/```(.*?)svg/g, '').matchAll(pattern);
 
             // 遍历所有匹配结果
             for (const match of matches) {
+                // 清理topic文本，移除XML标签
+                const topic = match[1].replace(/<\/?topic>/g, '').trim();
+                const svg = match[2];
+                console.log('topic-352', topic)
+
                 results.push({
-                    topic: match[1],
-                    svg: `${match[2]}`
+                    topic: topic,
+                    svg: svg
                 });
             }
-            //剩下的部分也需要加载进来,这部分可以考虑先不做
-            //tepdata=allData.substring(allData.lastIndexOf(match[2]))
+
+            // 如果没有找到匹配，尝试查找单个SVG
             if (results.length === 0) {
                 const regex = /<svg[^>]*>[\s\S]*<\/text>/m;
                 const match2 = allData.match(regex);
-                const pattern2 = /<topic>(.*?)<\/topic>/m
+                const pattern2 = /<topic>(.*?)<\/topic>/m;
                 const match3 = allData.match(pattern2);
+
                 if (match2 && match3) {
+                    const topic = match3[1].replace(/<\/?topic>/g, '').trim();
                     results.push({
-                        topic: match3[0],
-                        svg: `${match2[0]}`+'</svg>'
+                        topic: topic,
+                        svg: match2[0] + '</svg>'
                     });
+                    console.log('topic-370', topic)
                 }
             }
-
             return results;
         }
 
-        function updateCarouselWithFiles(files) {
-            const carouselInner = document.querySelector('.carousel-inner');
-            carouselInner.innerHTML = ''; // 清空现有内容
-            files.forEach((file, index) => {
-                const div = document.createElement('div');
-                div.className = `carousel-item ${index === files.length - 1 ? 'active' : ''}`;
-                div.innerHTML = file.svg  + `
-                    <button class="btn btn-primary download-btn" onclick="downloadSVG('${file.topic}.svg')">下载SVG</button>
-                `;
-                //<div class="svg-title" style="position: absolute; top: 10px; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.7); color: white; padding: 5px 15px; border-radius: 15px;">${file.topic}</div>
-                carouselInner.appendChild(div);
+        const svgContainer = document.getElementById('svgContainer');
+        const domList = document.getElementById('svgList');
+
+        function updateSVGContainerWithFiles(files) {
+            // 设置svg-list的最小高度为文件数量 * 400
+            domList.style.minHeight = `${files.length * 240}px`;
+
+            files.forEach((file) => {
+                console.log(file.topic)
+                // 查找是否存在相同topic的容器
+                let svgWrapper = Array.from(domList.children).find(child => child.title === file.topic);
+
+                if (svgWrapper) {
+                    // 如果找到已存在的容器，更新其内容
+                    svgWrapper.innerHTML = file.svg.replace(/<topic>(.*?)<\/topic>/g, '').replace(/```(.*?)svg/g, '').replace(/```/g, '');
+                } else {
+                    // 如果不存在，创建新的容器
+                    svgWrapper = document.createElement('div');
+                    svgWrapper.className = 'svg-wrap';
+                    svgWrapper.title = file.topic;
+                    svgWrapper.innerHTML = file.svg;
+                    domList.appendChild(svgWrapper);
+                }
             });
+        }
+
+        async function downloadAllSVGs(files) {
+            try {
+                const zip = new JSZip();
+
+                // 添加所有SVG文件到zip
+                files.forEach(file => {
+                    const svgContent = file.svg;
+                    const fileName = `${file.topic}.svg`;
+                    zip.file(fileName, svgContent);
+                });
+
+                // 生成zip文件
+                const content = await zip.generateAsync({ type: "blob" });
+
+                // 创建下载链接
+                const url = window.URL.createObjectURL(content);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'svg_files.zip';
+                document.body.appendChild(a);
+                a.click();
+
+                // 清理
+                window.URL.revokeObjectURL(url);
+                document.body.removeChild(a);
+                showAlert('SVG文件打包下载成功', 'success');
+            } catch (error) {
+                console.error('下载SVG文件时发生错误:', error);
+                showAlert('下载SVG文件失败', 'danger');
+            }
         }
 
         function showAlert(message, type) {
@@ -278,53 +403,7 @@
                 alertDiv.remove();
             }, 5000);
         }
-        async function downloadSVG(filePath) {
-            try {
-                // 获取当前激活的carousel-item
-                const activeItem = document.querySelector('.carousel-item.active');
-                if (!activeItem) {
-                    showAlert('无法获取当前SVG内容', 'danger');
-                    return;
-                }
-
-                // 获取SVG内容
-                const svgElement = activeItem.querySelector('svg');
-                if (!svgElement) {
-                    showAlert('无法获取SVG内容', 'danger');
-                    return;
-                }
-
-                // 获取标题
-                const titleElement = activeItem.querySelector('.svg-title');
-                const fileName = titleElement ? titleElement.textContent + '.svg' : 'download.svg';
-
-                // 创建Blob对象
-                const svgContent = svgElement.outerHTML;
-                const blob = new Blob([svgContent], { type: 'image/svg+xml' });
-                const url = window.URL.createObjectURL(blob);
-
-                // 创建下载链接
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = fileName;
-                document.body.appendChild(a);
-                a.click();
-
-                // 清理
-                window.URL.revokeObjectURL(url);
-                document.body.removeChild(a);
-                showAlert('SVG下载成功', 'success');
-            } catch (error) {
-                console.error('下载SVG时发生错误:', error);
-                showAlert('下载SVG文件失败', 'danger');
-            }
-        }
     </script>
 </body>
 
 </html>
-<div class="loading-overlay">
-    <div class="spinner-border loading-spinner" role="status">
-        <span class="visually-hidden">加载中...</span>
-    </div>
-</div>
