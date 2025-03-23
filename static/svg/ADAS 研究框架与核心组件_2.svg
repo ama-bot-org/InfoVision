@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
+  <!-- Background -->
+  <rect width="800" height="600" fill="#f9f9f9" rx="10" ry="10"/>
+  
+  <!-- Title -->
+  <text x="400" y="50" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#333333">ADAS 研究框架与核心组件</text>
+  
+  <!-- Main ADAS Definition Box -->
+  <rect x="100" y="80" width="600" height="80" rx="10" ry="10" fill="#e1f5fe" stroke="#29b6f6" stroke-width="2"/>
+  <text x="400" y="120" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#0277bd">自动化智能系统设计 (ADAS)</text>
+  <text x="400" y="145" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#0277bd">通过搜索算法在搜索空间中优化评估函数来自动设计智能系统</text>
+  
+  <!-- Three Main Components -->
+  <g transform="translate(0, 180)">
+    <!-- Search Space -->
+    <rect x="50" y="0" width="220" height="320" rx="10" ry="10" fill="#e8f5e9" stroke="#66bb6a" stroke-width="2"/>
+    <text x="160" y="30" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#2e7d32">搜索空间</text>
+    <text x="160" y="55" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#2e7d32">定义可以表示的智能系统</text>
+    
+    <!-- Search Space Icons -->
+    <g transform="translate(70, 70)">
+      <!-- Code Space -->
+      <rect x="0" y="0" width="180" height="70" rx="5" ry="5" fill="#c8e6c9" stroke="#2e7d32" stroke-width="1"/>
+      <text x="90" y="25" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#1b5e20">代码空间</text>
+      <text x="90" y="45" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#1b5e20">智能系统以代码定义</text>
+      <text x="90" y="60" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#1b5e20">图灵完备，最灵活</text>
+      
+      <!-- Prompt Space -->
+      <rect x="0" y="80" width="180" height="70" rx="5" ry="5" fill="#f1f8e9" stroke="#7cb342" stroke-width="1"/>
+      <text x="90" y="105" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#33691e">提示词空间</text>
+      <text x="90" y="125" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#33691e">仅优化提示词</text>
+      <text x="90" y="140" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#33691e">灵活性有限</text>
+      
+      <!-- Graph Space -->
+      <rect x="0" y="160" width="180" height="70" rx="5" ry="5" fill="#f1f8e9" stroke="#7cb342" stroke-width="1"/>
+      <text x="90" y="185" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#33691e">图结构空间</text>
+      <text x="90" y="205" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#33691e">定义节点和边的连接</text>
+      <text x="90" y="220" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#33691e">灵活性受限</text>
+    </g>
+    
+    <!-- Search Algorithm -->
+    <rect x="290" y="0" width="220" height="320" rx="10" ry="10" fill="#fff3e0" stroke="#ffa726" stroke-width="2"/>
+    <text x="400" y="30" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#e65100">搜索算法</text>
+    <text x="400" y="55" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#e65100">如何探索搜索空间</text>
+    
+    <!-- Search Algorithm Illustration -->
+    <g transform="translate(315, 70)">
+      <!-- Meta Agent -->
+      <circle cx="85" cy="40" r="30" fill="#ffe0b2" stroke="#e65100" stroke-width="2"/>
+      <text x="85" y="45" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#e65100">元智能体</text>
+      
+      <!-- Agents Archive -->
+      <rect x="20" y="120" width="130" height="80" rx="5" ry="5" fill="#ffe0b2" stroke="#e65100" stroke-width="2"/>
+      <text x="85" y="140" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#e65100">智能体档案</text>
+      <rect x="30" y="150" width="110" height="15" rx="2" ry="2" fill="#fff" stroke="#e65100" stroke-width="1"/>
+      <rect x="30" y="170" width="110" height="15" rx="2" ry="2" fill="#fff" stroke="#e65100" stroke-width="1"/>
+      
+      <!-- New Agent -->
+      <rect x="20" y="250" width="130" height="40" rx="5" ry="5" fill="#ffcc80" stroke="#e65100" stroke-width="2"/>
+      <text x="85" y="275" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#e65100">新智能体</text>
+      
+      <!-- Arrows -->
+      <path d="M85,70 Q85,95 85,120" stroke="#e65100" stroke-width="2" fill="none" stroke-dasharray="5,2"/>
+      <polygon points="85,120 80,110 90,110" fill="#e65100"/>
+      
+      <path d="M85,200 Q85,225 85,250" stroke="#e65100" stroke-width="2" fill="none"/>
+      <polygon points="85,250 80,240 90,240" fill="#e65100"/>
+      
+      <path d="M150,270 Q180,270 180,150 Q180,85 115,40" stroke="#e65100" stroke-width="2" fill="none" stroke-dasharray="5,2"/>
+      <polygon points="115,40 120,48 110,50" fill="#e65100"/>
+      
+      <text x="170" y="200" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#e65100">反馈</text>
+    </g>
+    
+    <!-- Evaluation Function -->
+    <rect x="530" y="0" width="220" height="320" rx="10" ry="10" fill="#e8eaf6" stroke="#3f51b5" stroke-width="2"/>
+    <text x="640" y="30" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#303f9f">评估函数</text>
+    <text x="640" y="55" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#303f9f">如何评估智能体性能</text>
+    
+    <!-- Evaluation Metrics -->
+    <g transform="translate(555, 70)">
+      <!-- Performance -->
+      <rect x="0" y="0" width="170" height="50" rx="5" ry="5" fill="#c5cae9" stroke="#3f51b5" stroke-width="2"/>
+      <text x="85" y="30" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#283593">性能（准确率/F1分数）</text>
+      
+      <!-- Cost -->
+      <rect x="0" y="60" width="170" height="50" rx="5" ry="5" fill="#e8eaf6" stroke="#3f51b5" stroke-width="1"/>
+      <text x="85" y="90" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#3949ab">成本</text>
+      
+      <!-- Latency -->
+      <rect x="0" y="120" width="170" height="50" rx="5" ry="5" fill="#e8eaf6" stroke="#3f51b5" stroke-width="1"/>
+      <text x="85" y="150" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#3949ab">延迟</text>
+      
+      <!-- Safety -->
+      <rect x="0" y="180" width="170" height="50" rx="5" ry="5" fill="#e8eaf6" stroke="#3f51b5" stroke-width="1"/>
+      <text x="85" y="210" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#3949ab">安全性</text>
+      
+      <!-- Robustness -->
+      <rect x="0" y="240" width="170" height="50" rx="5" ry="5" fill="#e8eaf6" stroke="#3f51b5" stroke-width="1"/>
+      <text x="85" y="270" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#3949ab">鲁棒性</text>
+    </g>
+  </g>
+  
+  <!-- Bottom message -->
+  <rect x="150" y="530" width="500" height="50" rx="25" ry="25" fill="#e3f2fd" stroke="#2196f3" stroke-width="2"/>
+  <text x="400" y="560" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#0d47a1">代码空间 + 元智能体搜索 = 最灵活的智能系统设计</text></svg>

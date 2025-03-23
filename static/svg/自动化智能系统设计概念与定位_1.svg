@@ -1,0 +1,58 @@
+<svg width="800" height="500" xmlns="http://www.w3.org/2000/svg">
+  <!-- 背景 -->
+  <rect width="800" height="500" fill="#f8f9fa" rx="10" ry="10"/>
+  
+  <!-- 标题 -->
+  <text x="400" y="50" font-family="Arial, sans-serif" font-size="24" text-anchor="middle" font-weight="bold" fill="#333">自动化智能系统设计 (ADAS) 概念图</text>
+  
+  <!-- 上半部分：传统人工设计方法 -->
+  <rect x="100" y="90" width="600" height="150" fill="#e6f0ff" rx="10" ry="10" stroke="#aac" stroke-width="2"/>
+  <text x="400" y="115" font-family="Arial, sans-serif" font-size="18" text-anchor="middle" font-weight="bold" fill="#335">传统方法：人工设计智能系统</text>
+  
+  <!-- 人工设计流程图 -->
+  <rect x="150" y="135" width="120" height="60" fill="#cceeff" rx="8" ry="8" stroke="#99c" stroke-width="1"/>
+  <text x="210" y="170" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#335">研究人员设计</text>
+  
+  <path d="M270,165 L320,165" stroke="#335" stroke-width="2" marker-end="url(#arrow)"/>
+  
+  <rect x="320" y="135" width="120" height="60" fill="#cceeff" rx="8" ry="8" stroke="#99c" stroke-width="1"/>
+  <text x="380" y="170" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#335">手动组合组件</text>
+  
+  <path d="M440,165 L490,165" stroke="#335" stroke-width="2" marker-end="url(#arrow)"/>
+  
+  <rect x="490" y="135" width="120" height="60" fill="#cceeff" rx="8" ry="8" stroke="#99c" stroke-width="1"/>
+  <text x="550" y="170" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#335">最终智能系统</text>
+  
+  <!-- 下半部分：ADAS方法 -->
+  <rect x="100" y="260" width="600" height="200" fill="#f0e8ff" rx="10" ry="10" stroke="#cac" stroke-width="2"/>
+  <text x="400" y="285" font-family="Arial, sans-serif" font-size="18" text-anchor="middle" font-weight="bold" fill="#525">ADAS方法：自动化设计智能系统</text>
+  
+  <!-- ADAS流程图 -->
+  <rect x="120" y="310" width="150" height="70" fill="#e6d9ff" rx="8" ry="8" stroke="#a9a" stroke-width="1"/>
+  <text x="195" y="340" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#525">搜索空间</text>
+  <text x="195" y="360" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#525">（代码定义的智能系统）</text>
+  
+  <path d="M270,345 L320,345" stroke="#525" stroke-width="2" marker-end="url(#arrow)"/>
+  
+  <rect x="320" y="310" width="150" height="70" fill="#e6d9ff" rx="8" ry="8" stroke="#a9a" stroke-width="1"/>
+  <text x="395" y="340" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#525">搜索算法</text>
+  <text x="395" y="360" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#525">（元智能体生成新智能体）</text>
+  
+  <path d="M470,345 L520,345" stroke="#525" stroke-width="2" marker-end="url(#arrow)"/>
+  
+  <rect x="520" y="310" width="150" height="70" fill="#e6d9ff" rx="8" ry="8" stroke="#a9a" stroke-width="1"/>
+  <text x="595" y="340" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#525">评估函数</text>
+  <text x="595" y="360" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#525">（针对特定任务的性能）</text>
+  
+  <path d="M400" y="400" d="M400,380 C400,400 400,400 350,400 C300,400 200,400 180,400 C160,400 140,400 140,380" stroke="#525" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+  
+  <!-- 优势说明 -->
+  <rect x="150" y="410" width="500" height="30" fill="none" rx="5" ry="5"/>
+  <text x="400" y="430" font-family="Arial, sans-serif" font-size="16" text-anchor="middle" fill="#525">自动发现新颖、高效的智能系统设计</text>
+  
+  <!-- 箭头标记定义 -->
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#525"/>
+    </marker>
+  </defs></svg>

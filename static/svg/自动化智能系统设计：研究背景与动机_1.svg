@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="500" viewBox="0 0 800 500">
+  <!-- Background -->
+  <rect width="800" height="500" fill="#f8f9fa" rx="10" ry="10"/>
+  
+  <!-- Title -->
+  <text x="400" y="50" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#333">自动化智能系统设计：研究背景与动机</text>
+  
+  <!-- Main sections -->
+  <g transform="translate(50, 100)">
+    <!-- History evolution section -->
+    <rect x="0" y="0" width="300" height="320" rx="10" ry="10" fill="#e1f5fe" stroke="#29b6f6" stroke-width="2"/>
+    <text x="150" y="30" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#0277bd">历史演变</text>
+    
+    <!-- The history steps -->
+    <g transform="translate(30, 60)">
+      <rect x="0" y="0" width="240" height="50" rx="5" ry="5" fill="#fff" stroke="#29b6f6" stroke-width="1"/>
+      <text x="120" y="30" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#333">手工设计的特征 (HOG)</text>
+      
+      <line x1="120" x2="120" y1="50" y2="70" stroke="#29b6f6" stroke-width="2" stroke-dasharray="4"/>
+      <polygon points="120,80 115,70 125,70" fill="#29b6f6"/>
+      
+      <rect x="0" y="80" width="240" height="50" rx="5" ry="5" fill="#fff" stroke="#29b6f6" stroke-width="1"/>
+      <text x="120" y="110" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#333">学习到的特征 (CNN)</text>
+      
+      <line x1="120" x2="120" y1="130" y2="150" stroke="#29b6f6" stroke-width="2" stroke-dasharray="4"/>
+      <polygon points="120,160 115,150 125,150" fill="#29b6f6"/>
+      
+      <rect x="0" y="160" width="240" height="50" rx="5" ry="5" fill="#fff" stroke="#29b6f6" stroke-width="1"/>
+      <text x="120" y="190" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#333">神经架构搜索 (NAS)</text>
+      
+      <line x1="120" x2="120" y1="210" y2="230" stroke="#29b6f6" stroke-width="2" stroke-dasharray="4"/>
+      <polygon points="120,240 115,230 125,230" fill="#29b6f6"/>
+      
+      <rect x="0" y="240" width="240" height="50" rx="5" ry="5" fill="#b3e5fc" stroke="#0277bd" stroke-width="2"/>
+      <text x="120" y="270" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#01579b">自动化智能系统设计 (ADAS)</text>
+    </g>
+    
+    <!-- Current status -->
+    <rect x="350" y="0" width="350" height="320" rx="10" ry="10" fill="#e8f5e9" stroke="#66bb6a" stroke-width="2"/>
+    <text x="525" y="30" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#2e7d32">当前智能系统开发困境</text>
+    
+    <g transform="translate(380, 60)">
+      <!-- Researcher drawing manually -->
+      <circle cx="50" cy="40" r="30" fill="#c8e6c9" stroke="#2e7d32" stroke-width="2"/>
+      <text x="50" y="45" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#1b5e20">研究者</text>
+      
+      <path d="M80,40 Q140,0 200,40" stroke="#2e7d32" stroke-width="2" fill="none"/>
+      <polygon points="200,40 190,35 190,45" fill="#2e7d32"/>
+      
+      <text x="140" y="20" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#1b5e20">手动设计</text>
+      
+      <rect x="150" y="20" width="170" height="230" rx="5" ry="5" fill="#fff" stroke="#2e7d32" stroke-width="2"/>
+      <text x="235" y="45" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#2e7d32">智能系统组件</text>
+      
+      <!-- Components -->
+      <rect x="170" y="60" width="130" height="30" rx="5" ry="5" fill="#c8e6c9" stroke="#2e7d32" stroke-width="1"/>
+      <text x="235" y="80" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#1b5e20">思维链 (Chain-of-Thought)</text>
+      
+      <rect x="170" y="100" width="130" height="30" rx="5" ry="5" fill="#c8e6c9" stroke="#2e7d32" stroke-width="1"/>
+      <text x="235" y="120" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#1b5e20">自我反思 (Self-Reflection)</text>
+      
+      <rect x="170" y="140" width="130" height="30" rx="5" ry="5" fill="#c8e6c9" stroke="#2e7d32" stroke-width="1"/>
+      <text x="235" y="160" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#1b5e20">工具使用 (Tool Use)</text>
+      
+      <rect x="170" y="180" width="130" height="30" rx="5" ry="5" fill="#c8e6c9" stroke="#2e7d32" stroke-width="1"/>
+      <text x="235" y="200" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#1b5e20">记忆结构 (Memory)</text>
+      
+      <!-- Problem indication -->
+      <text x="80" y="140" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#c62828">✗ 耗时</text>
+      <text x="80" y="170" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#c62828">✗ 大量人力</text>
+      <text x="80" y="200" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#c62828">✗ 组合复杂</text>
+      <text x="80" y="230" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#c62828">✗ 领域特定</text>
+    </g>
+  </g>
+  
+  <!-- Bottom message -->
+  <rect x="200" y="430" width="400" height="50" rx="25" ry="25" fill="#ede7f6" stroke="#673ab7" stroke-width="2"/>
+  <text x="400" y="460" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#4527a0">自动化设计：更快、更高效的开发范式</text></svg>

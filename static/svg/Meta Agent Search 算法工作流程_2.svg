@@ -1,0 +1,67 @@
+<svg width="800" height="560" xmlns="http://www.w3.org/2000/svg">
+  <!-- 背景 -->
+  <rect width="800" height="560" fill="#f5f7fa" rx="10" ry="10"/>
+  
+  <!-- 标题 -->
+  <text x="400" y="40" font-family="Arial, sans-serif" font-size="24" text-anchor="middle" font-weight="bold" fill="#333">Meta Agent Search 算法工作流程</text>
+  
+  <!-- 元智能体框 -->
+  <rect x="320" y="70" width="160" height="70" fill="#ffedd8" rx="10" ry="10" stroke="#e67700" stroke-width="2"/>
+  <text x="400" y="105" font-family="Arial, sans-serif" font-size="18" text-anchor="middle" font-weight="bold" fill="#994d00">元智能体</text>
+  <text x="400" y="125" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#994d00">(Meta Agent)</text>
+  
+  <!-- 迭代循环流程图 -->
+  <!-- 从元智能体到新智能体 -->
+  <path d="M400,140 L400,180" stroke="#666" stroke-width="2" marker-end="url(#arrow)" stroke-dasharray="5,3"/>
+  
+  <!-- 新智能体框 -->
+  <rect x="300" y="180" width="200" height="90" fill="#d8f3ff" rx="10" ry="10" stroke="#0078b4" stroke-width="2"/>
+  <text x="400" y="205" font-family="Arial, sans-serif" font-size="18" text-anchor="middle" font-weight="bold" fill="#005380">新智能体</text>
+  <text x="400" y="230" font-family="Arial, sans-serif" font-size="13" text-anchor="middle" fill="#005380">根据存档生成新设计</text>
+  <text x="400" y="250" font-family="Arial, sans-serif" font-size="13" text-anchor="middle" fill="#005380">完整的代码实现</text>
+  
+  <!-- 任务输入 -->
+  <rect x="100" y="310" width="140" height="60" fill="#e8f5e9" rx="8" ry="8" stroke="#2e7d32" stroke-width="2"/>
+  <text x="170" y="345" font-family="Arial, sans-serif" font-size="16" text-anchor="middle" fill="#1b5e20">任务输入</text>
+  
+  <!-- 输入到新智能体的箭头 -->
+  <path d="M240,340 L300,340" stroke="#666" stroke-width="2" marker-end="url(#arrow)"/>
+  
+  <!-- 任务执行框 -->
+  <rect x="300" y="310" width="200" height="60" fill="#f5e8fd" rx="8" ry="8" stroke="#7b1fa2" stroke-width="2"/>
+  <text x="400" y="345" font-family="Arial, sans-serif" font-size="16" text-anchor="middle" font-weight="bold" fill="#4a148c">任务执行与测试</text>
+  
+  <!-- 测试结果到存档的箭头 -->
+  <path d="M500,340 L560,340" stroke="#666" stroke-width="2" marker-end="url(#arrow)"/>
+  
+  <!-- 智能体存档框 -->
+  <rect x="560" y="280" width="180" height="120" fill="#ede7f6" rx="10" ry="10" stroke="#512da8" stroke-width="2"/>
+  <text x="650" y="310" font-family="Arial, sans-serif" font-size="18" text-anchor="middle" font-weight="bold" fill="#311b92">智能体存档</text>
+  <text x="650" y="335" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#311b92">记录发现的智能体:</text>
+  <text x="650" y="360" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#311b92">- 设计模式</text>
+  <text x="650" y="380" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#311b92">- 性能数据</text>
+  
+  <!-- 存档到元智能体的循环箭头 -->
+  <path d="M650,280 L650,180 C650,150 600,120 550,120 L480,120" stroke="#666" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+  <text x="580" y="150" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#333" transform="rotate(-20, 580, 150)">更新存档信息</text>
+  
+  <!-- 示例发现的智能体 -->
+  <rect x="50" y="420" width="700" height="110" fill="#fff8e1" rx="10" ry="10" stroke="#ffa000" stroke-width="2"/>
+  <text x="400" y="445" font-family="Arial, sans-serif" font-size="18" text-anchor="middle" font-weight="bold" fill="#ff6f00">发现的智能体示例</text>
+  
+  <!-- 三个示例智能体 -->
+  <rect x="80" y="460" width="180" height="50" fill="#fff3e0" rx="5" ry="5" stroke="#e65100" stroke-width="1"/>
+  <text x="170" y="488" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#e65100">多步同行评审智能体</text>
+  
+  <rect x="290" y="460" width="180" height="50" fill="#fff3e0" rx="5" ry="5" stroke="#e65100" stroke-width="1"/>
+  <text x="380" y="488" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#e65100">验证多模态智能体</text>
+  
+  <rect x="500" y="460" width="180" height="50" fill="#fff3e0" rx="5" ry="5" stroke="#e65100" stroke-width="1"/>
+  <text x="590" y="488" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#e65100">分而治之智能体</text>
+  
+  <!-- 箭头标记定义 -->
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#666"/>
+    </marker>
+  </defs></svg>

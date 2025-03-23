@@ -5,7 +5,6 @@ from werkzeug.utils import secure_filename
 from PyPDF2 import PdfReader
 import subprocess
 import re
-from test import llm_process_files
 from pdfparse import process_single_pdf
 from getsvg import process_single_file
 from stream import streamoutput
@@ -52,10 +51,6 @@ def convert_pdf_to_svg(doc_name, output_dir):
 def index():
     return render_template('index.html')
 
-
-@app.route('/upload', methods=['POST'])
-@rate_limit(limit=2, window=60)
-def upload_file():
     if 'file' not in request.files:
         return jsonify({'error': '没有文件上传'}), 400
         
