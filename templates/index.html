@@ -155,7 +155,7 @@
         <div class="upload-container">
             <form id="uploadForm">
                 <div class="mb-3">
-                    <label for="pdfFile" class="form-label">选择PDF文件生成结构化的svg</label>
+                    <label for="pdfFile" class="form-label">选择PDF文件生成结构化的svg1</label>
                     <input type="file" class="form-control" id="pdfFile" accept=".pdf" required>
                 </div>
                 <button type="submit" class="btn btn-primary" id="submitBtn">上传并转换</button>
@@ -202,6 +202,18 @@
             statusContainer.style.display = 'block';
         }
 
+        const svgContainer = document.getElementById('svgContainer');
+        const domList = document.getElementById('svgList');
+        let globalFiles = []; // 添加全局变量来存储文件数据
+
+        function clearExistingResults() {
+            // 清空DOM中的SVG列表
+            domList.innerHTML = '';
+            domList.style.minHeight = 0
+            // 清空全局文件数据
+            globalFiles = [];
+        }
+
         document.getElementById('uploadForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const fileInput = document.getElementById('pdfFile');
@@ -209,6 +221,14 @@
             if (!file) {
                 showAlert('请选择PDF文件', 'danger');
                 return;
+            }
+
+            // 检查是否有现有结果
+            if (domList.children.length > 0) {
+                if (!confirm('重新解析将丢失之前分析的结果，是否继续？')) {
+                    return; // 如果用户点击取消，直接返回
+                }
+                clearExistingResults(); // 如果用户确认，清除现有结果
             }
 
             const formData = new FormData();
@@ -248,7 +268,6 @@
                             svgFiles = [];
                             updateStatus('正在转换PDF为SVG...', 'converting');
                         } else if (data.content === 'Done') {
-                            console.log('完整的数据:', allData);
                             ret = updateSvglWithData(allData)
                             svgFiles = [];
                             for (const file of ret) {
@@ -256,13 +275,16 @@
                             }
                             updateStatus('PDF转换成功！', 'success');
                             // 添加一个下载所有SVG的按钮
-                            const downloadAllBtn = document.createElement('button');
-                            downloadAllBtn.className = 'btn btn-primary';
-                            downloadAllBtn.style.margin = '1rem auto';
-                            downloadAllBtn.style.display = 'block';
-                            downloadAllBtn.textContent = '下载所有SVG文件';
+                            let downloadAllBtn = svgContainer.querySelector('button.download-all-svg');
+                            if (!downloadAllBtn) {
+                                downloadAllBtn = document.createElement('button');
+                                downloadAllBtn.className = 'btn btn-primary download-all-svg';
+                                downloadAllBtn.style.margin = '1rem auto';
+                                downloadAllBtn.style.display = 'block';
+                                downloadAllBtn.textContent = '下载所有SVG文件';
+                                svgContainer.appendChild(downloadAllBtn);
+                            }
                             downloadAllBtn.onclick = () => downloadAllSVGs(svgFiles);
-                            svgContainer.appendChild(downloadAllBtn);
                         } else {
                             allData += data.content;
                             svgFiles = [];
@@ -305,42 +327,49 @@
                 // 清理topic文本，移除XML标签
                 const topic = match[1].replace(/<\/?topic>/g, '').trim();
                 const svg = match[2];
-                console.log('topic-352', topic)
 
                 results.push({
                     topic: topic,
                     svg: svg
                 });
             }
-
+            var tepData = ""
             // 如果没有找到匹配，尝试查找单个SVG
-            if (results.length === 0) {
-                const regex = /<svg[^>]*>[\s\S]*<\/text>/m;
-                const match2 = allData.match(regex);
-                const pattern2 = /<topic>(.*?)<\/topic>/m;
-                const match3 = allData.match(pattern2);
-
-                if (match2 && match3) {
-                    const topic = match3[1].replace(/<\/?topic>/g, '').trim();
-                    results.push({
-                        topic: topic,
-                        svg: match2[0] + '</svg>'
-                    });
-                    console.log('topic-370', topic)
-                }
+            //处理完完整的svg，这里可以进行后续svg的获取，实现整个过程的渐进式加载
+            if (results.length > 0) {
+                //已经获取到了完整的svg，则进行截断断处理
+                const svgstring = results[results.length - 1].svg
+                console.log(svgstring)
+                const index = allData.indexOf(svgstring);
+                console.log(index)
+                tepData = (index !== -1 ? allData.slice(index + svgstring.length) : '')
+                console.log(tepData)
+            }else{
+                tepData = allData
             }
+            const regex = /<svg[^>]*>[\s\S]*<\/text>/m;
+            const match2 = tepData.match(regex);
+            const pattern2 = /<topic>(.*?)<\/topic>/m;
+            const match3 = tepData.match(pattern2);
+            if (match2 && match3) {
+                const topic2 = match3[1].replace(/<\/?topic>/g, '').trim();
+                results.push({
+                    topic: topic2,
+                    svg: match2[0] + '</svg>'
+                });
+            }
+
             return results;
         }
 
-        const svgContainer = document.getElementById('svgContainer');
-        const domList = document.getElementById('svgList');
-
         function updateSVGContainerWithFiles(files) {
+            // 更新全局文件数据
+            globalFiles = files;
+
             // 设置svg-list的最小高度为文件数量 * 400
             domList.style.minHeight = `${files.length * 240}px`;
 
             files.forEach((file) => {
-                console.log(file.topic)
                 // 查找是否存在相同topic的容器
                 let svgWrapper = Array.from(domList.children).find(child => child.title === file.topic);
 
