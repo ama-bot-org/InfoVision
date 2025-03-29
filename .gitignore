@@ -1,6 +1,5 @@
 *.pdf
 *.pyc
-*.json
 /ssl
 /test
 /test.js
