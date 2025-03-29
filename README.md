@@ -1,15 +1,51 @@
-# Paper2SVG 转换器
 
-一个基于Flask的Web应用，用于将PDF文件转换为SVG格式并提供在线预览功能。
+InfoVision 是一款文本信息图形化的工具，旨在帮助用户在信息密集环境中高效提取和整理关键信息。用户可上传 PDF 文件，系统将利用 AI 技术 自动解析内容，提炼核心要点及逻辑结构，并生成 可编辑的 SVG 文件，以便进一步处理和分析。
+该工具适用于 学术论文阅读、项目计划梳理、长篇文献概览 以及 简历可视化 等多种场景，有助于提高信息筛选效率，增强内容理解与决策能力。
 
-## 功能特性
+## 🌟 核心能力
+🚀 可视化呈现 —— 一键生成 可编辑的 SVG 文件，打造 交互式知识图谱
+📚 多场景适用 —— 无论是 学术论文、商业计划、长篇文献 还是 简历可视化，均可高效处理。
+⚡ 提升阅读效率 —— 帮助用户快速筛选有效信息，减少信息过载带来的认知负担，提高决策效率。
 
-- PDF文件上传和转换
-- SVG格式在线预览
-- 支持流式数据处理
-- 轮播图展示多页SVG
-- 文件下载功能
-- API访问频率限制
+## 🎯 产品用例：将学术论文拆解为可视化图片
+<div align="center">
+<img src="./static/svg/spaces2Fuploads2Facademy.gif" width="80%"/>
+</div>
+
+## 🎯 其他示例场景
+ ✨ 企业财报解析
+<div align="center">
+<img src="./static/svg/5.png" width="80%"/>
+</div>
+<div align="center">
+腾讯2024年度财报</div>
+
+✨ 项目文档梳理
+<div align="center">
+<img src="./static/svg/6.png" width="80%"/>
+</div>
+<div align="center">
+PRD文档撰写指南</div>
+
+✨ 技术文档梳理
+<div align="center">
+<img src="./static/svg/7.png" width="80%"/>
+</div>
+<div align="center">
+数据中台建设实践</div>
+
+
+✨ 简历可视化：在线生成可视化简历SVG，支持编辑
+<div align="center">
+<img src="./static/svg/spaces2Fuploads2FAEE586.gif" width="80%"/>
+</div>
+<div align="center">
+一键创建可编辑简历</div>
+
+✨ ✨ ✨ 欢迎解锁更多新用法！
+
+当前产品版本为MVP第一版本，欢迎大家进行体验，解锁更多新用法，也欢迎提供宝贵的建议与我们一起共创。 
+ 🚀 🚀 🚀 访问 https://pdf2svg.aiyin.xyz/ 即刻体验 🚀 🚀 🚀 
 
 ## 安装说明
 
@@ -49,21 +85,4 @@ python app.py
 ## 注意事项
 
 - 支持的最大文件大小为16MB
-- API访问有频率限制（2次/分钟）
 - 仅支持PDF格式文件上传
-
-## 演示资源
-
-### 演示视频
-<video width="100%" controls>
-  <source src="static/演示视频.mp4" type="video/mp4">
-  您的浏览器不支持视频标签。
-</video>
-
-### 演示SVG
-以下是一些示例SVG文件的预览：
-
-<div style="display: flex; flex-wrap: wrap; gap: 20px;">
-  <object data="Meta Agent Search 算法工作流程_2.svg" type="image/svg+xml" style="width: 45%; min-width: 300px;"></object>
-  <object data="static/实验结果与跨域迁移能力_3.svg" type="image/svg+xml" style="width: 45%; min-width: 300px;"></object>
-</div>

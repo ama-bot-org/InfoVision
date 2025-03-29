@@ -8,7 +8,6 @@ import re
 from pdfparse import process_single_pdf
 from getsvg import process_single_file
 from stream import streamoutput
-from limiter import rate_limit
 
 
 app = Flask(__name__)
@@ -69,13 +68,10 @@ def index():
         # 解析pdf
         output_path = process_single_pdf(pdf_path)
         # 获取大模型数据
-        print(output_path)
         #llm_output = os.path.join(os.path.dirname(__file__), 'svgtxt/' + base_name + '.txt')
         llm_output = llm_process_files(output_path)
-        print(llm_output)
         # 获取svg
         process_single_file(llm_output,base_name)
-        print(pdf_path)
         svg_files = convert_pdf_to_svg(pdf_path, app.config['SVG_FOLDER'])
         print(svg_files)
         if not svg_files:
@@ -87,7 +83,6 @@ def index():
         return jsonify({'error': str(e)}), 500
 
 @app.route('/streamupload', methods=['POST'])
-@rate_limit(limit=2, window=60)
 def stream_upload():
     if 'file' not in request.files:
         return jsonify({'error': '没有文件上传'}), 400
@@ -124,7 +119,6 @@ def stream_upload():
 
 
 @app.route('/updateconfig', methods=['POST'])
-@rate_limit(limit=2, window=60)
 def updateconfig():
     try:
         # 获取请求数据
@@ -156,5 +150,4 @@ def updateconfig():
 
 
 if __name__ == '__main__':
-    #convert_pdf_to_svg("uploads\\ai-creation-and-the-cosmic-host.pdf",app.config['SVG_FOLDER'])
     app.run(host='127.0.0.1', port=8000, debug=True)
