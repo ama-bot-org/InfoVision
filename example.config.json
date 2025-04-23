@@ -1,0 +1,5 @@
+{
+    "api_url": "yourapiurl.com",
+    "api_key": "yourapiurlkey",
+    "model": "claude-3.7-sonnet"
+}
