@@ -4,3 +4,14 @@
 /test
 /test.js
 /openapi.py
+
+venv
+.venv
+
+__pycache__
+
+*.DS_Store
+.vscode/
+.idea/
+
+config.json

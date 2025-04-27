@@ -12,7 +12,7 @@ from stream import streamoutput
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = 'uploads'
-app.config['SVG_FOLDER'] = '\\static\\svg\\'
+app.config['SVG_FOLDER'] = './static/svg/'  # make sure all os works
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16MB max-limit
 
 # 确保上传目录存在
